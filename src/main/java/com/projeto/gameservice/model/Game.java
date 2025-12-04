@@ -15,6 +15,9 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "last_rating")
+    private Double Rating;
+
     private String title;
     private String description;
     private String genre;

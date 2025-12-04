@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class GameService {
@@ -32,5 +34,19 @@ public class GameService {
 
     public void deleteGame(Long id) {
         gameRepository.deleteById(id);
+    }
+
+    public boolean updateRating(Long id, Double newRating) {
+        Optional<Game> gameOptional = gameRepository.findById(id);
+
+        if (gameOptional.isPresent()) {
+            Game game = gameOptional.get();
+            game.setRating(newRating);
+            gameRepository.save(game);
+
+            System.out.println("Service: Nota atualizada para " + newRating);
+            return true;
+        }
+        return false;
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/games")
@@ -44,4 +46,14 @@ public class GameController {
         gameService.deleteGame(id);
     }
 
+    @PatchMapping("/{id}/rating")
+    public ResponseEntity<Void> updateGameRating(@PathVariable Long id, @RequestBody Map<String, Double> payload) {
+        Double newRating = payload.get("rating");
+        boolean updated = gameService.updateRating(id, newRating);
+        if (updated) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
