@@ -41,7 +41,7 @@ public class GameService {
 
         if (gameOptional.isPresent()) {
             Game game = gameOptional.get();
-            game.setRating(newRating);
+            game.setLastRating(newRating);
             gameRepository.save(game);
 
             System.out.println("Service: Nota atualizada para " + newRating);
